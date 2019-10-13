@@ -26,10 +26,7 @@
                     <p>
                         <strong>Section</strong> : ${staffMember.section}
                     </p>
-                    <p>
-                        <strong>Contact Number</strong> : ${staffMember.shortCell}
-                    </p>
-                    <a href="<c:url value="/gymstaff"/>" class="btn btn-success btn-sm">Go Back</a>
+                    <a href="<c:url value="/gymstaff"/>" class="btn btn-primary btn-sm">Go Back</a>
                 </div>
             </div>
         </div>

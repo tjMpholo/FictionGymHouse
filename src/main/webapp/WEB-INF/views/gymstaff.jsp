@@ -28,12 +28,20 @@
                     <td>${staffMember.section}</td>
                     <td>${staffMember.workTitle}</td>
                     <td>
-                        <a href="<spring:url value="/gymstaff/staff_detailed/${staffMember.staffId}"/>">
-                            <span class="glyphicon glyphicon-oil"></span>
+                        <a href="<spring:url value="/gymstaff/staff_detailed/${staffMember.staffMemberId}"/>">
+                            <span class="glyphicon glyphicon-share"></span>
+                        </a>
+                        <a href="<spring:url value="/gymstaff/edit_StaffMemberDetail/${staffMember.staffMemberId}"/>">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
+                        <a href="<spring:url value="/gymstaff/delete_StaffDetail/${staffMember.staffMemberId}"/>">
+                            <span class="glyphicon glyphicon-remove"></span>
                         </a>
                     </td>
                 </tr>
             </spring:forEach>
         </table>
+
+        <a href="<spring:url value="/gymstaff/addNewStaffMember"/>" class="btn btn-sm btn-primary">New staff Member</a>
 
 <%@include file="template/footer.jsp"%>
