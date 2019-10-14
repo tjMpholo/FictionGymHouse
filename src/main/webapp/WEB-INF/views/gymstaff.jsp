@@ -11,6 +11,7 @@
         <table class="table table-striped">
             <tr>
                 <thead>
+                <th>Staff Profile</th>
                 <th>Staff member name</th>
                 <th>Surname</th>
                 <th>Duty</th>
@@ -22,6 +23,9 @@
 
             <spring:forEach items="${staffMembers}" var="staffMember">
                 <tr>
+                    <td>
+                        <img src="<spring:url value="/resources/images/${staffMember.staffMemberId}.jpg"/>" width="100" class="img-responsive img-rounded" alt="No Profile">
+                    </td>
                     <td>${staffMember.firstName}</td>
                     <td>${staffMember.lastName}</td>
                     <td>${staffMember.workTitle}</td>

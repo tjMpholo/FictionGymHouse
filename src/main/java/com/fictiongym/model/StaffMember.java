@@ -1,19 +1,35 @@
 package com.fictiongym.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.persistence.*;
 
 @Entity
 public class StaffMember {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String staffMemberId;
+
+    @NotEmpty(message = "Your first name must not be empty.")
     private String firstName;
+    @NotEmpty(message = "Your last name must not be empty.")
     private String lastName;
+    @NotEmpty(message = "Please add a work title for the employee.")
     private String workTitle;
+    @NotEmpty(message = "Please add the section in which the employee works.")
     private String section;
+
+    @Transient
+    private MultipartFile staffMemberPicture;
+
+    public MultipartFile getStaffMemberPicture() {
+        return staffMemberPicture;
+    }
+
+    public void setStaffMemberPicture(MultipartFile staffMemberPicture) {
+        this.staffMemberPicture = staffMemberPicture;
+    }
 
     public String getStaffMemberId() {
         return staffMemberId;
