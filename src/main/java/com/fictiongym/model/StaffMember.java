@@ -1,5 +1,6 @@
 package com.fictiongym.model;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -8,7 +9,8 @@ import javax.persistence.*;
 @Entity
 public class StaffMember {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String staffMemberId;
 
     @NotEmpty(message = "Your first name must not be empty.")
