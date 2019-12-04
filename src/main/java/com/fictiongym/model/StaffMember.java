@@ -13,6 +13,9 @@ public class StaffMember {
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String staffMemberId;
 
+    @NotEmpty(message = "Id number cannot be empty")
+    private String rsaIdNumber;
+
     @NotEmpty(message = "Your first name must not be empty.")
     private String firstName;
     @NotEmpty(message = "Your last name must not be empty.")
@@ -67,6 +70,14 @@ public class StaffMember {
 
     public String getSection() {
         return section;
+    }
+
+    public String getRsaIdNumber() {
+        return rsaIdNumber;
+    }
+
+    public void setRsaIdNumber(String rsaIdNumber) {
+        this.rsaIdNumber = rsaIdNumber;
     }
 
     public void setSection(String section) {

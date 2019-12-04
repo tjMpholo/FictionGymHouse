@@ -12,6 +12,11 @@
                     <form:form action="${pageContext.request.contextPath}/gymstaff/edit_StaffMemberDetail" method="post" enctype="multipart/form-data" commandName="staffMember" >
                         <form:hidden path="staffMemberId" value="${staffMember.staffMemberId}"/>
                         <div class="form-group">
+                            <label for="rsaIdNumber" class="control-label">RSA ID number</label>
+                            <form:errors path="rsaIdNumber" cssStyle="color:red"/>
+                            <form:input path="rsaIdNumber" id="rsaIdNumber" class="form-control"/>
+                        </div>
+                        <div class="form-group">
                             <label for="firstName">First Name</label>
                             <form:errors path="firstName" cssStyle="color:red"/>
                             <form:input path="firstName" id="firstName" class="form-control"/>
@@ -24,7 +29,13 @@
                         <div class="form-group">
                             <label for="workTitle">Title</label>
                             <form:errors path="workTitle" cssStyle="color: red"/>
-                            <form:input path="workTitle" id="workTitle" class="form-control" />
+                            <form:select path="workTitle" class="form-control">
+                                <form:option value="Manager"/>
+                                <form:option value="Sales Manager"/>
+                                <form:option value="Instructor"/>
+                                <form:option value="General Worker"/>
+                                <form:option value="Sales Person"/>
+                            </form:select>
                         </div>
                         <div class="form-group">
                             <label for="section">Section</label>

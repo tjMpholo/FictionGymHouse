@@ -19,7 +19,9 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class HomeController {
@@ -133,4 +135,22 @@ public class HomeController {
         staffMemberDao.deleteStaffMember(staffMemberId);
         return "redirect:/gymstaff";
     }
+
+    /*
+    protected Map workTitles(HttpServletRequest request) throws Exception{
+        Map workTitles = new HashMap();
+
+        Map<String,String> titles = new HashMap<String, String>();
+
+        titles.put("1","Manager");
+        titles.put("2","Sales Manager");
+        titles.put("3","Instructor");
+        titles.put("4","Sales Person");
+        titles.put("5","General Worker");
+
+        workTitles.put("workTitles", titles);
+        return workTitles;
+    }
+    */
+
 }
