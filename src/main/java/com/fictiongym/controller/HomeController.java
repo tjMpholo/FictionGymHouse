@@ -1,7 +1,9 @@
 package com.fictiongym.controller;
 
 
+import com.fictiongym.dao.GymMemberDao;
 import com.fictiongym.dao.StaffMemberDao;
+import com.fictiongym.model.GymMember;
 import com.fictiongym.model.StaffMember;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +29,9 @@ import java.util.Map;
 public class HomeController {
     @Autowired
     private StaffMemberDao staffMemberDao;
+
+    @Autowired
+            private GymMemberDao gymMemberDao;
 
 
     Path path;
@@ -85,6 +90,17 @@ public class HomeController {
         return "redirect:/gymstaff";
     }
 
+    @RequestMapping(value = "/gym_members/addNewGymMember", method = RequestMethod.POST)
+    public String addNewGymMemberPost(@Valid @ModelAttribute("gymMember") GymMember gymMember,BindingResult result, HttpServletRequest request ){
+        if (result.hasErrors()){
+            return "add_new_gym_member";
+        }
+
+        gymMemberDao.addNewGymMember(gymMember);
+
+        return "redirect:/gym_members";
+    }
+
     @RequestMapping("/gymstaff/edit_StaffMemberDetail/{staffMemberId}")
     public String editStaffMemberDetail(@PathVariable String staffMemberId, Model model){
         StaffMember staffMember = staffMemberDao.getStaffMemberByStaffId(staffMemberId);
@@ -135,6 +151,22 @@ public class HomeController {
         staffMemberDao.deleteStaffMember(staffMemberId);
         return "redirect:/gymstaff";
     }
+
+    @RequestMapping("/gym_members")
+    public String gymMembersHome(){
+        return "gym_members";
+    }
+
+    @RequestMapping("/gym_members/addNewGymMember")
+    public String addNewGymMember(Model model){
+        GymMember gymMember = new GymMember();
+
+        model.addAttribute("gymMember",gymMember);
+
+        return "add_new_gym_member";
+    }
+
+
 
     /*
     protected Map workTitles(HttpServletRequest request) throws Exception{
