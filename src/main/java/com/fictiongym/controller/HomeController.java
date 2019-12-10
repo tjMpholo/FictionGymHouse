@@ -153,8 +153,40 @@ public class HomeController {
     }
 
     @RequestMapping("/gym_members")
-    public String gymMembersHome(){
+    public String gymMembersHome(Model model){
+        List<GymMember> gymMemberList = gymMemberDao.getAllGymMembers();
+
+        model.addAttribute("memberList",gymMemberList);
+
         return "gym_members";
+    }
+
+    @RequestMapping("/gym_members/edit_gym_member_details/{defaultId}")
+    public String editGymMemberDetails(@PathVariable String defaultId, Model model){
+        GymMember gymMember = gymMemberDao.getGymMemberById(defaultId);
+
+        model.addAttribute("gymMember",gymMember);
+
+        return "edit_gym_member";
+    }
+
+    @RequestMapping(value = "/gym_members/update_gym_member", method = RequestMethod.POST)
+    public String updateGymMemberDetails(@Valid @ModelAttribute("gymMember") GymMember gymMember,BindingResult result,HttpServletRequest request){
+        if (result.hasErrors()){
+            return "edit_gym_member";
+        }
+
+        gymMemberDao.updateGymMember(gymMember);
+
+        return "redirect:/gym_members";
+    }
+
+    @RequestMapping("/gym_members/view_gym_member_details/{defaultId}")
+    public String viewDetailGymMemberInfo(@PathVariable String defaultId,Model model){
+        GymMember gymMember = gymMemberDao.getGymMemberById(defaultId);
+
+        model.addAttribute("gymMember",gymMember);
+        return "gym_member_detailed";
     }
 
     @RequestMapping("/gym_members/addNewGymMember")

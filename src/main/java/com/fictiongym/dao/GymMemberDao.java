@@ -13,7 +13,7 @@ public interface GymMemberDao {
 
     List<GymMember> getAllGymMembers();
 
-    GymMember getGymMemberById(String memberId);
+    GymMember getGymMemberById(String defaultId);
 
     void deleteMember(String memberId);
 }

@@ -30,7 +30,7 @@ public class GymMemberImpl implements GymMemberDao {
     public void updateGymMember(GymMember member) {
         Session session = sessionFactory.getCurrentSession();
 
-        session.saveOrUpdate(member);
+        session.saveOrUpdate(member.getDefaultId(), member);
         session.flush();
     }
 
@@ -48,10 +48,10 @@ public class GymMemberImpl implements GymMemberDao {
     }
 
     @Override
-    public GymMember getGymMemberById(String memberId) {
+    public GymMember getGymMemberById(String defaultId) {
         Session session = sessionFactory.getCurrentSession();
 
-        GymMember member = (GymMember)session.get(GymMember.class,memberId);
+        GymMember member = (GymMember)session.get(GymMember.class,defaultId);
 
         session.flush();
 

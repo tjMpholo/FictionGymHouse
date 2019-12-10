@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -117,11 +118,11 @@ public class GymMember {
         this.gender = gender;
     }
 
-    public boolean isRsaCitizen() {
+    public boolean getIsRsaCitizen() {
         return isRsaCitizen;
     }
 
-    public void setRsaCitizen(boolean rsaCitizen) {
+    public void setIsRsaCitizen(boolean rsaCitizen) {
         isRsaCitizen = rsaCitizen;
     }
 }
