@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="col-md-4"></div>
                 <div class="col-md-4">
-                    <form:form action="${pageContext.request.contextPath}/gymstaff/addNewStaffMember" method="post" enctype="multipart/form-data" commandName="staffMember" >
+                    <form:form action="${pageContext.request.contextPath}/gymStaff/addNewStaffMember" method="post" enctype="multipart/form-data" commandName="staffMember" >
                         <div class="form-group">
                             <label for="rsaIdNumber" class="control-label">RSA ID number</label>
                             <form:errors path="rsaIdNumber" cssStyle="color:red"/>
@@ -49,6 +49,7 @@
                         <div class="form-group">
                             <label for="staffMemberPicture" class="control-label">Profile Picture</label>
                             <form:input path="staffMemberPicture" id="staffMemberPicture" type="file" class="form-input-large" />
+                            <form:hidden path="isProfileSet" value="${staffMember.isProfileSet}"/>
                         </div>
 
                         <input type="submit" value="submit" class="btn btn-primary">

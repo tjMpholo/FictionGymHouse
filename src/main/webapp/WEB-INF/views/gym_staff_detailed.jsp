@@ -1,4 +1,6 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="forms" uri="http://www.springframework.org/tags/form" %>
 <%@include file="template/header.jsp"%>
 <div class="container-wrapper">
     <div class="container">
@@ -10,7 +12,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-5">
-                    <img src="#" alt="image" style="width: 100%; height: 300px">
+                    <img src="<spring:url value="/resources/images/${staffMember.imagePath}.jpg"/>" alt="image" class="img-responsive" style="width: 400px">
                 </div>
 
                 <div class="col-md-5">
@@ -26,7 +28,7 @@
                     <p>
                         <strong>Section</strong> : ${staffMember.section}
                     </p>
-                    <a href="<c:url value="/gymstaff"/>" class="btn btn-primary btn-sm">Go Back</a>
+                    <a href="<c:url value="/gymStaff"/>" class="btn btn-primary btn-sm">Go Back</a>
                 </div>
             </div>
         </div>

@@ -41,43 +41,41 @@ public class HomeController {
         return "home";
     }
 
-    @RequestMapping("/gymstaff")
+    @RequestMapping("/gymStaff")
     public String gymStaff(Model model){
         List<StaffMember> staffMembers = staffMemberDao.getAllStaffMembers();
 
         model.addAttribute("staffMembers",staffMembers);
-        return "gymstaff";
+        return "gym_staff";
     }
 
-    @RequestMapping("/gymstaff/staff_detailed/{staffMemberId}")
+    @RequestMapping("/gymStaff/staffDetailed/{staffMemberId}")
     public String viewIndividualStaffDetail(@PathVariable String staffMemberId, Model model ) throws Exception{
         StaffMember staffMember = staffMemberDao.getStaffMemberByStaffId(staffMemberId);
 
         model.addAttribute("staffMember",staffMember);
-        return "staff_detailed";
+        return "gym_staff_detailed";
     }
 
-    @RequestMapping("/gymstaff/addNewStaffMember")
+    @RequestMapping("/gymStaff/addNewStaffMember")
     public String addNewStaffMember(Model model){
         StaffMember staffMember = new StaffMember();
         model.addAttribute("staffMember",staffMember);
 
-        return "addNewStaffMember";
+        return "add_new_staff_member";
     }
 
-    @RequestMapping(value = "/gymstaff/addNewStaffMember", method = RequestMethod.POST)
+    @RequestMapping(value = "/gymStaff/addNewStaffMember", method = RequestMethod.POST)
     public String addStaffMemberPost(@Valid @ModelAttribute("staffMember") StaffMember staffMember, BindingResult result, HttpServletRequest request){
         if (result.hasErrors()){
             return "addNewStaffMember";
         }
 
-        staffMemberDao.addStaffMember(staffMember);
-
         MultipartFile staffMemberPicture = staffMember.getStaffMemberPicture();
 
         String rootDirectory = request.getSession().getServletContext().getRealPath("/");
 
-        path = Paths.get(rootDirectory + "\\WEB-INF\\resources\\images\\" + staffMember.getStaffMemberId() + ".jpg");
+        path = Paths.get(rootDirectory + "\\WEB-INF\\resources\\images\\" + staffMember.getRsaIdNumber() + ".jpg");
 
         if (staffMemberPicture != null && !staffMemberPicture.isEmpty()){
             try {
@@ -86,8 +84,16 @@ public class HomeController {
             catch (Exception ex){
                 throw new RuntimeException("Image path invalid " + ex.getMessage());
             }
+
+            staffMember.setIsProfileSet(true);
+            staffMember.setImagePath(staffMember.getRsaIdNumber());
         }
-        return "redirect:/gymstaff";
+        else {
+            staffMember.setIsProfileSet(false);
+        }
+
+        staffMemberDao.addStaffMember(staffMember);
+        return "redirect:/gymStaff";
     }
 
     @RequestMapping(value = "/gym_members/addNewGymMember", method = RequestMethod.POST)
@@ -101,40 +107,54 @@ public class HomeController {
         return "redirect:/gym_members";
     }
 
-    @RequestMapping("/gymstaff/edit_StaffMemberDetail/{staffMemberId}")
+    @RequestMapping("/gymStaff/editStaffMemberDetail/{staffMemberId}")
     public String editStaffMemberDetail(@PathVariable String staffMemberId, Model model){
         StaffMember staffMember = staffMemberDao.getStaffMemberByStaffId(staffMemberId);
 
         model.addAttribute("staffMember",staffMember);
 
-        return "edit_StaffMemberDetail";
+        return "edit_staff_member";
     }
 
-    @RequestMapping(value = "/gymstaff/edit_StaffMemberDetail", method = RequestMethod.POST)
+    @RequestMapping(value = "/gymStaff/editStaffMemberDetail", method = RequestMethod.POST)
     public String editStaffMemberDetail(@Valid @ModelAttribute("staffMember") StaffMember staffMember, BindingResult result, HttpServletRequest request){
+        Path defaultPath = null;
+
         if (result.hasErrors()){
-            return "edit_StaffMemberDetail";
+            return "edit_staff_member";
         }
 
         MultipartFile staffMemberImage = staffMember.getStaffMemberPicture();
 
         String rootDirectory = request.getSession().getServletContext().getRealPath("/");
 
-        path = Paths.get(rootDirectory + "\\WEB-INF\\resources\\images\\" + staffMember.getStaffMemberId() + ".jpg");
+        path = Paths.get(rootDirectory + "\\WEB-INF\\resources\\images\\" + staffMember.getRsaIdNumber() + ".jpg");
 
-        if (staffMemberImage != null && !staffMemberImage.isEmpty()){
-            try {
-                staffMemberImage.transferTo(new File(path.toString()));
+        if (Files.exists(path)){
+            if (!(staffMemberImage != null && !staffMemberImage.isEmpty())){
+                staffMember.setIsProfileSet(true);
+                staffMember.setImagePath(staffMember.getRsaIdNumber());
             }
-            catch (Exception ex){
-                throw new RuntimeException("Image path invalid " + ex.getMessage());
-            }
-            staffMemberDao.updateStaffMember(staffMember);
         }
-        return "redirect:/gymstaff";
+        else{
+            if (staffMemberImage != null && !staffMemberImage.isEmpty()){
+                try {
+                    staffMemberImage.transferTo(new File(path.toString()));
+                    staffMember.setIsProfileSet(true);
+                    staffMember.setImagePath(staffMember.getRsaIdNumber());
+                }
+                catch (Exception ex){
+                    throw new RuntimeException("Image path invalid " + ex.getMessage());
+                }
+            }
+        }
+
+        staffMemberDao.updateStaffMember(staffMember);
+
+        return "redirect:/gymStaff";
     }
 
-    @RequestMapping("/gymstaff/delete_StaffDetail/{staffMemberId}")
+    @RequestMapping("/gymStaff/deleteStaffDetail/{staffMemberId}")
     public String deleteStaffMember(@PathVariable String staffMemberId,  Model model, HttpServletRequest request){
         String rootDirectory = request.getSession().getServletContext().getRealPath("/");
         path = Paths.get(rootDirectory + "\\WEB-INF\\resources\\images\\" + staffMemberId + ".jpg");
@@ -149,7 +169,7 @@ public class HomeController {
         }
 
         staffMemberDao.deleteStaffMember(staffMemberId);
-        return "redirect:/gymstaff";
+        return "redirect:/gymStaff";
     }
 
     @RequestMapping("/gym_members")

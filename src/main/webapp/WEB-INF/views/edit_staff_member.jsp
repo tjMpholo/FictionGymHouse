@@ -9,7 +9,7 @@
 
             <div class="row">
                 <div class="col-md-4">
-                    <form:form action="${pageContext.request.contextPath}/gymstaff/edit_StaffMemberDetail" method="post" enctype="multipart/form-data" commandName="staffMember" >
+                    <form:form action="${pageContext.request.contextPath}/gymStaff/editStaffMemberDetail" method="post" enctype="multipart/form-data" commandName="staffMember" >
                         <form:hidden path="staffMemberId" value="${staffMember.staffMemberId}"/>
                         <div class="form-group">
                             <label for="rsaIdNumber" class="control-label">RSA ID number</label>

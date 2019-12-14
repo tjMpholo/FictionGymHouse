@@ -25,6 +25,26 @@ public class StaffMember {
     @NotEmpty(message = "Please add the section in which the employee works.")
     private String section;
 
+    private boolean isProfileSet = false;
+
+    private String imagePath = "male_default";
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public boolean getIsProfileSet() {
+        return isProfileSet;
+    }
+
+    public void setIsProfileSet(boolean profileSet) {
+        isProfileSet = profileSet;
+    }
+
     @Transient
     private MultipartFile staffMemberPicture;
 

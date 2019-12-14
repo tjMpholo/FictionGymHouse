@@ -24,7 +24,7 @@
             <spring:forEach items="${staffMembers}" var="staffMember">
                 <tr>
                     <td>
-                        <img src="<spring:url value="/resources/images/${staffMember.staffMemberId}.jpg"/>" width="100" class="img-responsive img-rounded" alt="No Profile">
+                        <img src="<spring:url value="/resources/images/${staffMember.imagePath}.jpg"/>" width="100" class="img-responsive img-rounded" alt="No Profile">
                     </td>
                     <td>${staffMember.firstName}</td>
                     <td>${staffMember.lastName}</td>
@@ -32,13 +32,15 @@
                     <td>${staffMember.section}</td>
                     <td>${staffMember.workTitle}</td>
                     <td>
-                        <a href="<spring:url value="/gymstaff/staff_detailed/${staffMember.staffMemberId}"/>">
+                        <a href="<spring:url value="/gymStaff/staffDetailed/${staffMember.staffMemberId}"/>">
                             <span class="glyphicon glyphicon-share"></span>
                         </a>
-                        <a href="<spring:url value="/gymstaff/edit_StaffMemberDetail/${staffMember.staffMemberId}"/>">
+                        &nbsp;
+                        <a href="<spring:url value="/gymStaff/editStaffMemberDetail/${staffMember.staffMemberId}"/>">
                             <span class="glyphicon glyphicon-pencil"></span>
                         </a>
-                        <a href="<spring:url value="/gymstaff/delete_StaffDetail/${staffMember.staffMemberId}"/>">
+                        &nbsp;
+                        <a href="<spring:url value="/gymStaff/deleteStaffDetail/${staffMember.staffMemberId}"/>">
                             <span class="glyphicon glyphicon-remove"></span>
                         </a>
                     </td>
@@ -46,6 +48,6 @@
             </spring:forEach>
         </table>
 
-        <a href="<spring:url value="/gymstaff/addNewStaffMember"/>" class="btn btn-sm btn-primary">New staff Member</a>
+        <a href="<spring:url value="/gymStaff/addNewStaffMember"/>" class="btn btn-sm btn-primary">New staff Member</a>
 
 <%@include file="template/footer.jsp"%>
