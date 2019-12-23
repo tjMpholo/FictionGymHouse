@@ -17,6 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -96,15 +99,38 @@ public class HomeController {
         return "redirect:/gymStaff";
     }
 
-    @RequestMapping(value = "/gym_members/addNewGymMember", method = RequestMethod.POST)
+    @RequestMapping(value = "/gymMember/addNewGymMember", method = RequestMethod.POST)
     public String addNewGymMemberPost(@Valid @ModelAttribute("gymMember") GymMember gymMember,BindingResult result, HttpServletRequest request ){
         if (result.hasErrors()){
-            return "add_new_gym_member";
+            return "gym_member_register";
+        }
+
+
+        MultipartFile memberPicture = gymMember.getMemberProfilePicture();
+
+        String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+
+        path = Paths.get(rootDirectory + "\\WEB-INF\\resources\\images\\" + gymMember.getMemberIdentifier() + ".jpg");
+
+
+        if (memberPicture != null && !memberPicture.isEmpty()){
+            try {
+                memberPicture.transferTo(new File(path.toString()));
+            }
+            catch (Exception ex){
+                throw new RuntimeException("Image path invalid " + ex.getMessage());
+            }
+
+            gymMember.setIsProfileSet(true);
+            gymMember.setImagePath(gymMember.getMemberIdentifier());
+        }
+        else {
+            gymMember.setIsProfileSet(false);
         }
 
         gymMemberDao.addNewGymMember(gymMember);
 
-        return "redirect:/gym_members";
+        return "redirect:/gymMember";
     }
 
     @RequestMapping("/gymStaff/editStaffMemberDetail/{staffMemberId}")
@@ -130,10 +156,30 @@ public class HomeController {
 
         path = Paths.get(rootDirectory + "\\WEB-INF\\resources\\images\\" + staffMember.getRsaIdNumber() + ".jpg");
 
+
+        /*
+        //Clipboard code
+        StringSelection stringSelection = new StringSelection(path.toAbsolutePath().toString());
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents(stringSelection, null);
+        */
+
         if (Files.exists(path)){
             if (!(staffMemberImage != null && !staffMemberImage.isEmpty())){
                 staffMember.setIsProfileSet(true);
                 staffMember.setImagePath(staffMember.getRsaIdNumber());
+            }
+            else{
+                try {
+                    Files.delete(path);
+
+                    staffMemberImage.transferTo(new File(path.toString()));
+                    staffMember.setIsProfileSet(true);
+                    staffMember.setImagePath(staffMember.getRsaIdNumber());
+                }
+                catch (Exception ex){
+                    throw new RuntimeException("Image path invalid " + ex.getMessage());
+                }
             }
         }
         else{
@@ -157,7 +203,104 @@ public class HomeController {
     @RequestMapping("/gymStaff/deleteStaffDetail/{staffMemberId}")
     public String deleteStaffMember(@PathVariable String staffMemberId,  Model model, HttpServletRequest request){
         String rootDirectory = request.getSession().getServletContext().getRealPath("/");
-        path = Paths.get(rootDirectory + "\\WEB-INF\\resources\\images\\" + staffMemberId + ".jpg");
+        StaffMember staffMember = staffMemberDao.getStaffMemberByStaffId(staffMemberId);
+
+        path = Paths.get(rootDirectory + "\\WEB-INF\\resources\\images\\" + staffMember.getRsaIdNumber() + ".jpg");
+
+        /*
+        //Clipboard code
+        StringSelection stringSelection = new StringSelection(path.toAbsolutePath().toString());
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents(stringSelection, null);
+        */
+
+        if (Files.exists(path)){
+            try {
+                Files.delete(path);
+                staffMemberDao.deleteStaffMember(staffMemberId);
+            }
+            catch (Exception ex){
+                throw new RuntimeException("Could not delete Image: " + ex.getMessage());
+            }
+        }
+
+
+        return "redirect:/gymStaff";
+    }
+
+    @RequestMapping("/gymMember")
+    public String gymMembersHome(Model model){
+        List<GymMember> gymMemberList = gymMemberDao.getAllGymMembers();
+
+        model.addAttribute("memberList",gymMemberList);
+
+        return "gym_member";
+    }
+
+    @RequestMapping("/gymMember/editGymMemberDetail/{defaultId}")
+    public String editGymMemberDetails(@PathVariable String defaultId, Model model){
+        GymMember gymMember = gymMemberDao.getGymMemberById(defaultId);
+
+        model.addAttribute("gymMember",gymMember);
+
+        return "edit_gym_member";
+    }
+
+    @RequestMapping(value = "/gymMember/editStaffMemberDetail", method = RequestMethod.POST)
+    public String updateGymMemberDetails(@Valid @ModelAttribute("gymMember") GymMember gymMember,BindingResult result,HttpServletRequest request){
+        if (result.hasErrors()){
+            return "edit_gym_member";
+        }
+
+        MultipartFile memberProfilePicture = gymMember.getMemberProfilePicture();
+
+        String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+
+        path = Paths.get(rootDirectory + "\\WEB-INF\\resources\\images\\" + gymMember.getMemberIdentifier() + ".jpg");
+
+        if (Files.exists(path)){
+            if (!(memberProfilePicture != null && !memberProfilePicture.isEmpty())){
+                gymMember.setIsProfileSet(true);
+                gymMember.setImagePath(gymMember.getMemberIdentifier());
+            }
+            else{
+                try {
+                    Files.delete(path);
+
+                    memberProfilePicture.transferTo(new File(path.toString()));
+                    gymMember.setIsProfileSet(true);
+                    gymMember.setImagePath(gymMember.getMemberIdentifier());
+                }
+                catch (Exception ex){
+                    throw new RuntimeException("Image path invalid " + ex.getMessage());
+                }
+            }
+        }
+        else{
+            if (memberProfilePicture != null && !memberProfilePicture.isEmpty()){
+                try {
+                    memberProfilePicture.transferTo(new File(path.toString()));
+                    gymMember.setIsProfileSet(true);
+                    gymMember.setImagePath(gymMember.getMemberIdentifier());
+                }
+                catch (Exception ex){
+                    throw new RuntimeException("Image path invalid " + ex.getMessage());
+                }
+            }
+        }
+
+        gymMemberDao.updateGymMember(gymMember);
+
+        return "redirect:/gymMember";
+    }
+
+    @RequestMapping("/gymMember/deleteMemberDetail/{gymMemberId}")
+    public String deleteGymMember(@PathVariable String gymMemberId,  Model model, HttpServletRequest request){
+        String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+
+        GymMember gymMember = gymMemberDao.getGymMemberById(gymMemberId);
+
+        path = Paths.get(rootDirectory + "\\WEB-INF\\resources\\images\\" + gymMember.getMemberIdentifier() + ".jpg");
 
         if (Files.exists(path)){
             try {
@@ -168,40 +311,11 @@ public class HomeController {
             }
         }
 
-        staffMemberDao.deleteStaffMember(staffMemberId);
-        return "redirect:/gymStaff";
+        gymMemberDao.deleteMember(gymMemberId);
+        return "redirect:/gymMember";
     }
 
-    @RequestMapping("/gym_members")
-    public String gymMembersHome(Model model){
-        List<GymMember> gymMemberList = gymMemberDao.getAllGymMembers();
-
-        model.addAttribute("memberList",gymMemberList);
-
-        return "gym_members";
-    }
-
-    @RequestMapping("/gym_members/edit_gym_member_details/{defaultId}")
-    public String editGymMemberDetails(@PathVariable String defaultId, Model model){
-        GymMember gymMember = gymMemberDao.getGymMemberById(defaultId);
-
-        model.addAttribute("gymMember",gymMember);
-
-        return "edit_gym_member";
-    }
-
-    @RequestMapping(value = "/gym_members/update_gym_member", method = RequestMethod.POST)
-    public String updateGymMemberDetails(@Valid @ModelAttribute("gymMember") GymMember gymMember,BindingResult result,HttpServletRequest request){
-        if (result.hasErrors()){
-            return "edit_gym_member";
-        }
-
-        gymMemberDao.updateGymMember(gymMember);
-
-        return "redirect:/gym_members";
-    }
-
-    @RequestMapping("/gym_members/view_gym_member_details/{defaultId}")
+    @RequestMapping("/gymMember/GymMemberDetailed/{defaultId}")
     public String viewDetailGymMemberInfo(@PathVariable String defaultId,Model model){
         GymMember gymMember = gymMemberDao.getGymMemberById(defaultId);
 
@@ -209,13 +323,13 @@ public class HomeController {
         return "gym_member_detailed";
     }
 
-    @RequestMapping("/gym_members/addNewGymMember")
+    @RequestMapping("/gymMember/addNewGymMember")
     public String addNewGymMember(Model model){
         GymMember gymMember = new GymMember();
 
         model.addAttribute("gymMember",gymMember);
 
-        return "add_new_gym_member";
+        return "gym_member_register";
     }
 
 

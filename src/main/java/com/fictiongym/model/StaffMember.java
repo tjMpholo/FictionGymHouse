@@ -5,6 +5,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.util.Calendar;
+import java.util.Date;
 
 @Entity
 public class StaffMember {
@@ -28,6 +30,57 @@ public class StaffMember {
     private boolean isProfileSet = false;
 
     private String imagePath = "male_default";
+
+    private String username;
+
+    private String password;
+
+    @Column(name="registrationDate", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable=false, updatable=false)
+    private Calendar registrationDate;
+
+    private Date lastLoginDate;
+
+    private Calendar lastUpdateDate;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Calendar getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(Calendar registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    public Date getLastLoginDate() {
+        return lastLoginDate;
+    }
+
+    public void setLastLoginDate(Date lastLoginDate) {
+        this.lastLoginDate = lastLoginDate;
+    }
+
+    public Calendar getLastUpdateDate() {
+        return lastUpdateDate;
+    }
+
+    public void setLastUpdateDate(Calendar lastUpdateDate) {
+        this.lastUpdateDate = lastUpdateDate;
+    }
 
     public String getImagePath() {
         return imagePath;

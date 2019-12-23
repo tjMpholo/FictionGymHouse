@@ -11,6 +11,7 @@
                 <div class="col-md-4">
                     <form:form action="${pageContext.request.contextPath}/gymStaff/editStaffMemberDetail" method="post" enctype="multipart/form-data" commandName="staffMember" >
                         <form:hidden path="staffMemberId" value="${staffMember.staffMemberId}"/>
+                        <form:hidden path="password" value="${staffMember.password}"/>
                         <div class="form-group">
                             <label for="rsaIdNumber" class="control-label">RSA ID number</label>
                             <form:errors path="rsaIdNumber" cssStyle="color:red"/>

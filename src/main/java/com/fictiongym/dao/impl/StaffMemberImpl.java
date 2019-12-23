@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Calendar;
 import java.util.List;
 
 @Repository
@@ -20,7 +21,8 @@ public class StaffMemberImpl implements StaffMemberDao {
 
     public void addStaffMember(StaffMember staffMember) {
         Session session = sessionFactory.getCurrentSession();
-
+        staffMember.setUsername(staffMember.getFirstName().substring(0,1) + "_" + staffMember.getLastName());
+        staffMember.setPassword("$!" + String.valueOf((int)(Math.random() * 10000)));
         session.saveOrUpdate(staffMember);
         session.flush();
     }
@@ -28,6 +30,7 @@ public class StaffMemberImpl implements StaffMemberDao {
     public void updateStaffMember(StaffMember staffMember) {
         Session session = sessionFactory.getCurrentSession();
 
+        staffMember.setLastUpdateDate(Calendar.getInstance());
         session.saveOrUpdate(staffMember);
         session.flush();
     }

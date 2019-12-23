@@ -18,8 +18,9 @@
         <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4">
-                <form:form action="${pageContext.request.contextPath}/gym_members/update_gym_member" method="post" enctype="multipart/form-data" commandName="gymMember">
+                <form:form action="${pageContext.request.contextPath}/gymMember/editStaffMemberDetail" method="post" enctype="multipart/form-data" commandName="gymMember">
                     <form:hidden path="defaultId" value="${gymMember.defaultId}"/>
+                    <form:hidden path="password" value="${gymMember.password}"/>
                     <div class="form-group">
                         <label for="memberIdentifier" class="control-label">RSA ID or passport number</label>
                         <form:errors path="memberIdentifier" cssStyle="color:red"/>
@@ -71,6 +72,12 @@
                             <form:option value="F">Female</form:option>
                             <form:option value="O">Other</form:option>
                         </form:select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="memberProfilePicture" class="control-label">Profile Picture</label>
+                        <form:input path="memberProfilePicture" id="memberProfilePicture" type="file" class="form-control"/>
+                        <form:hidden path="imagePath"  id="imagePath" value="${gymMember.imagePath}"/>
                     </div>
 
                     <input type="submit" value="Update member details" class="btn btn-sm btn-success"/>

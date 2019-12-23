@@ -1,5 +1,6 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="input" uri="http://www.springframework.org/tags/form" %>
 <%@include file="template/header.jsp"%>
 <div class="container-wrapper">
     <div class="container">
@@ -26,14 +27,16 @@
                     <td>
                         <img src="<spring:url value="/resources/images/${staffMember.imagePath}.jpg"/>" width="100" class="img-responsive img-rounded" alt="No Profile">
                     </td>
-                    <td>${staffMember.firstName}</td>
+                    <td>
+                            ${staffMember.firstName}
+                    </td>
                     <td>${staffMember.lastName}</td>
                     <td>${staffMember.workTitle}</td>
                     <td>${staffMember.section}</td>
                     <td>${staffMember.workTitle}</td>
                     <td>
                         <a href="<spring:url value="/gymStaff/staffDetailed/${staffMember.staffMemberId}"/>">
-                            <span class="glyphicon glyphicon-share"></span>
+                            <span class="glyphicon glyphicon-th"></span>
                         </a>
                         &nbsp;
                         <a href="<spring:url value="/gymStaff/editStaffMemberDetail/${staffMember.staffMemberId}"/>">

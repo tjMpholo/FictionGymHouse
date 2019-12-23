@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col-md-4"></div>
                 <div class="col-md-4">
-                    <form:form action="${pageContext.request.contextPath}/gym_members/addNewGymMember" method="post" enctype="multipart/form-data" commandName="gymMember">
+                    <form:form action="${pageContext.request.contextPath}/gymMember/addNewGymMember" method="post" enctype="multipart/form-data" commandName="gymMember">
                         <div class="form-group">
                             <label for="memberIdentifier" class="control-label">RSA ID or passport number</label>
                             <form:errors path="memberIdentifier" cssStyle="color:red"/>
@@ -76,8 +76,14 @@
                                 <form:option value="O">Other</form:option>
                             </form:select>
                         </div>
+                        
+                        <div class="form-group">
+                            <label for="memberProfilePicture" class="control-label">Profile Picture</label>
+                            <form:input path="memberProfilePicture" id="memberProfilePicture" type="file" class="form-control"/>
+                            <form:hidden path="imagePath"  id="imagePath" value="${gymMember.imagePath}"/>
+                        </div>
 
-                        <input type="submit" value="Register new member" class="btn btn-sm btn-success"/>
+                        <input type="submit" value="Register new member" class="btn btn-sm btn-primary"/>
                     </form:form>
                 </div>
                 <div class="col-md-4"></div>

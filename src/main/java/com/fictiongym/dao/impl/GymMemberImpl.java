@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Calendar;
 import java.util.List;
 
 @Repository
@@ -21,7 +22,8 @@ public class GymMemberImpl implements GymMemberDao {
     @Override
     public void addNewGymMember(GymMember member) {
         Session session = sessionFactory.getCurrentSession();
-
+        member.setUsername(member.getFirstName().substring(0,1) + "_" + member.getLastName());
+        member.setPassword("$!" + String.valueOf((int)(Math.random() * 10000)));
         session.saveOrUpdate(member);
         session.flush();
     }
@@ -30,6 +32,7 @@ public class GymMemberImpl implements GymMemberDao {
     public void updateGymMember(GymMember member) {
         Session session = sessionFactory.getCurrentSession();
 
+        member.setLastUpdateDate(Calendar.getInstance());
         session.saveOrUpdate(member.getDefaultId(), member);
         session.flush();
     }

@@ -4,15 +4,15 @@ package com.fictiongym.model;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Calendar;
 import java.util.Date;
 
 @Entity
+@Table(name = "gymmember")
 public class GymMember {
 
     @Id
@@ -45,6 +45,57 @@ public class GymMember {
     private String gender;
 
     private boolean isRsaCitizen;
+
+    private String username;
+
+    private String password;
+
+    @Transient
+    private MultipartFile memberProfilePicture;
+
+    private boolean isProfileSet = false;
+
+    private String imagePath = "male_default";
+
+
+    @Column(name="registrationDate", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable=false, updatable=false)
+    private Calendar registrationDate;
+
+    private Date lastLoginDate;
+
+    private Calendar lastUpdateDate;
+
+    public MultipartFile getMemberProfilePicture() {
+        return memberProfilePicture;
+    }
+
+    public Calendar getLastUpdateDate() {
+        return lastUpdateDate;
+    }
+
+    public void setLastUpdateDate(Calendar lastUpdateDate) {
+        this.lastUpdateDate = lastUpdateDate;
+    }
+
+    public boolean getIsProfileSet() {
+        return isProfileSet;
+    }
+
+    public void setIsProfileSet(boolean profileSet) {
+        isProfileSet = profileSet;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public void setMemberProfilePicture(MultipartFile memberProfilePicture) {
+        this.memberProfilePicture = memberProfilePicture;
+    }
 
     public String getDefaultId() {
         return defaultId;
@@ -124,5 +175,37 @@ public class GymMember {
 
     public void setIsRsaCitizen(boolean rsaCitizen) {
         isRsaCitizen = rsaCitizen;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Calendar getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(Calendar registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    public Date getLastLoginDate() {
+        return lastLoginDate;
+    }
+
+    public void setLastLoginDate(Date lastLoginDate) {
+        this.lastLoginDate = lastLoginDate;
     }
 }

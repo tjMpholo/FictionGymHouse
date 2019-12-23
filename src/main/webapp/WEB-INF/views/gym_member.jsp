@@ -13,23 +13,24 @@
     <div class="container">
         <div class="page-header">
         <div class="row">
-            <div class="col-md-1"></div>
+            <div class="col-md-10"></div>
             <div class="col-md-10">
                 <h3>Registered Fiction gym members</h3>
 
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>ID Number</th>
                             <th>Names</th>
                             <th>Cellphone Number</th>
                             <th>Email</th>
                             <th>Gender</th>
                         </tr>
                     </thead>
-
                     <spring:forEach items="${memberList}" var="gymMember">
                         <tr>
+                            <td>
+                                <img src="<spring:url value="/resources/images/${gymMember.imagePath}.jpg"/>" width="100" class="img-responsive img-rounded" alt="No Profile">
+                            </td>
                             <td>${gymMember.memberIdentifier}</td>
                             <td>${gymMember.firstName} ${gymMember.lastName}</td>
                             <td>${gymMember.cellphone}</td>
@@ -46,21 +47,25 @@
                             <spring:if test="${gymMember.gender == 'O'}">
                                 <td>Other</td>
                             </spring:if>
-                            
 
                             <td>
-                                <a href="<spring:url value="/gym_members/view_gym_member_details/${gymMember.defaultId}"/>">
+                                <a href="<spring:url value="/gymMember/GymMemberDetailed/${gymMember.defaultId}"/>">
                                     <span class="glyphicon glyphicon-th"></span>
                                 </a>
-                                <a href="<spring:url value="/gym_members/edit_gym_member_details/${gymMember.defaultId}"/>">
+                                &nbsp;
+                                <a href="<spring:url value="/gymMember/editGymMemberDetail/${gymMember.defaultId}"/>">
                                     <span class="glyphicon glyphicon-pencil"></span>
+                                </a>
+                                &nbsp;
+                                <a href="<spring:url value="/gymMember/deleteMemberDetail/${gymMember.defaultId}"/>">
+                                    <span class="glyphicon glyphicon-remove"></span>
                                 </a>
                             </td>
                         </tr>
                     </spring:forEach>
                 </table>
 
-                <a href="<c:url value="/gym_members/addNewGymMember"/>" class="btn btn-success btn-sm">Add new Member</a>
+                <a href="<c:url value="/gymMember/addNewGymMember"/>" class="btn btn-success btn-sm">Add new Member</a>
             </div>
             <div class="col-md-1"></div>
         </div>

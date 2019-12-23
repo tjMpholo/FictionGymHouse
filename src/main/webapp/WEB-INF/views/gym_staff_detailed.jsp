@@ -28,6 +28,16 @@
                     <p>
                         <strong>Section</strong> : ${staffMember.section}
                     </p>
+                    <div class="alert alert-success">
+                        <spring:if test="${staffMember.lastLoginDate == null}">
+                            <strong>Username: </strong> ${staffMember.username}
+                            <br>
+                            <strong>Temporary Password: </strong> ${staffMember.password}
+                        </spring:if>
+                        <spring:if test="${staffMember.lastLoginDate != null}">
+                            Password has been changed by staff member already!
+                        </spring:if>
+                    </div>
                     <a href="<c:url value="/gymStaff"/>" class="btn btn-primary btn-sm">Go Back</a>
                 </div>
             </div>

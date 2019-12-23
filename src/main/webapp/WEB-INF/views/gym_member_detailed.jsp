@@ -12,7 +12,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-5">
-                    <img src="#" alt="image" style="width: 100%; height: 300px">
+                    <img src="<spring:url value="/resources/images/${gymMember.imagePath}.jpg" />" alt="Member profile picture" style="width: 400%" class="img-responsive">
                 </div>
 
                 <div class="col-md-5">
@@ -62,7 +62,18 @@
                             No
                         </spring:if>
                     </p>
-                    <a href="<c:url value="/gym_members"/>" class="btn btn-primary btn-sm">Go Back</a>
+                    <div class="alert alert-success">
+                        <spring:if test="${gymMember.lastLoginDate == null}">
+                            <strong>Username: </strong> ${gymMember.username}
+                            <br>
+                            <strong>Temporary Password: </strong> ${gymMember.password}
+                        </spring:if>
+                        <spring:if test="${gymMember.lastLoginDate != null}">
+                            Password has been changed by member already!
+                        </spring:if>
+                    </div>
+
+                    <a href="<c:url value="/gymMember"/>" class="btn btn-primary btn-sm">Go Back</a>
                 </div>
             </div>
         </div>
