@@ -73,7 +73,7 @@
                         </spring:if>
                     </div>
 
-                    <a href="<c:url value="/gymMember"/>" class="btn btn-primary btn-sm">Go Back</a>
+                    <a href="<c:url value="/gymMember/All"/>" class="btn btn-primary btn-sm">Go Back</a>
                 </div>
             </div>
         </div>

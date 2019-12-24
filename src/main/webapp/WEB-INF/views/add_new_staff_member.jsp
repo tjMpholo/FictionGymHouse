@@ -3,15 +3,14 @@
 <%@ taglib prefix="forms" uri="http://www.springframework.org/tags/form" %>
 <%@include file="template/header.jsp"%>
 
-<div class="container-wrapper" style="margin-top:1.7%">
+<div class="container-wrapper" style="margin-top:1.2%">
     <div class="container">
         <div class="page-header">
-            <h3>Fiction Gym Staff members</h3>
-            <p class="lead">Register a new staff members..</p>
-
             <div class="row">
                 <div class="col-md-4"></div>
                 <div class="col-md-4">
+                    <h3>Fiction Gym Staff members</h3>
+                    <p class="lead">Register a new staff members..</p>
                     <form:form action="${pageContext.request.contextPath}/gymStaff/addNewStaffMember" method="post" enctype="multipart/form-data" commandName="staffMember" >
                         <div class="form-group">
                             <label for="rsaIdNumber" class="control-label">RSA ID number</label>

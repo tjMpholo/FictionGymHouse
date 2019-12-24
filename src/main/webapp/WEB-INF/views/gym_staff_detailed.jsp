@@ -39,7 +39,7 @@
                             Password has been changed by staff member already!
                         </spring:if>
                     </div>
-                    <a href="<c:url value="/gymStaff"/>" class="btn btn-primary btn-sm">Go Back</a>
+                    <a href="<c:url value="/gymStaff/All"/>" class="btn btn-primary btn-sm">Go Back</a>
                 </div>
             </div>
         </div>

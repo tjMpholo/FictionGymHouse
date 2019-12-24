@@ -15,15 +15,14 @@
     <title>Title</title>
 </head>
 <body>
-<div class="container-wrapper" style="margin-top:1.7%">
+<div class="container-wrapper" style="margin-top:1.2%">
     <div class="container">
         <div class="page-header">
-            <h3>Fiction Gym members</h3>
-            <p class="lead">Register a new gym member</p>
-
             <div class="row">
                 <div class="col-md-4"></div>
                 <div class="col-md-4">
+                    <h3>Fiction Gym members</h3>
+                    <p class="lead">Register a new gym member</p>
                     <form:form action="${pageContext.request.contextPath}/gymMember/addNewGymMember" method="post" enctype="multipart/form-data" commandName="gymMember">
                         <div class="form-group">
                             <label for="memberIdentifier" class="control-label">RSA ID or passport number</label>
