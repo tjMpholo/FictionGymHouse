@@ -2,10 +2,10 @@
 <%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="forms" uri="http://www.springframework.org/tags/form" %>
 <%@include file="template/header.jsp"%>
-<div class="container-wrapper">
+<div class="container-wrapper" style="margin-top:1.7%">
     <div class="container">
         <div class="page-header">
-            <h1>Fiction Gym Member Detail</h1>
+            <h3>Fiction Gym Member Detail</h3>
             <p class="lead">Here is the detailed information of ${gymMember.firstName} ${gymMember.lastName}.</p>
         </div>
 
@@ -76,6 +76,7 @@
                     <a href="<c:url value="/gymMember"/>" class="btn btn-primary btn-sm">Go Back</a>
                 </div>
             </div>
+        </div>
         </div>
 
 <%@include file="template/footer.jsp"%>

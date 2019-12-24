@@ -1,20 +1,13 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: tumis
-  Date: 2019/12/09
-  Time: 23:46
-  To change this template use File | Settings | File Templates.
---%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="input" uri="http://www.springframework.org/tags/form" %>
 <%@include file="template/header.jsp"%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<div class="container-wrapper">
+
+<div class="container-wrapper" style="margin-top:1.7%">
     <div class="container">
         <div class="page-header">
         <div class="row">
-            <div class="col-md-10"></div>
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <h3>Registered Fiction gym members</h3>
 
                 <table class="table table-striped">
@@ -65,15 +58,11 @@
                     </spring:forEach>
                 </table>
 
-                <a href="<c:url value="/gymMember/addNewGymMember"/>" class="btn btn-success btn-sm">Add new Member</a>
+                <a href="<c:url value="/gymMember/addNewGymMember"/>" class="btn btn-primary btn-sm">Add new Member</a>
             </div>
-            <div class="col-md-1"></div>
         </div>
     </div>
     </div>
     </div>
-
-</body>
-</html>
 
 <%@include file="template/footer.jsp"%>
