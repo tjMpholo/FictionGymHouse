@@ -48,6 +48,7 @@
         <security:intercept-url pattern="/Login/**" access="ROLE_MANAGER,ROLE_SALES_MANAGER,ROLE_SALES_PERSON,ROLE_USER" />
         <security:intercept-url pattern="/gymStaff/**" access="ROLE_MANAGER,ROLE_SALES_MANAGER" />
         <security:intercept-url pattern="/gymMember/**" access="ROLE_MANAGER,ROLE_SALES_MANAGER,ROLE_SALES_PERSON" />
+        <security:intercept-url pattern="/Instructor/**" access="ROLE_GUEST,ROLE_MANAGER,ROLE_SALES_MANAGER,ROLE_SALES_PERSON" />
         <security:form-login
                 login-page="/MemberLogin/Login"
                 default-target-url="/MemberLogin/LoginSuccess"
