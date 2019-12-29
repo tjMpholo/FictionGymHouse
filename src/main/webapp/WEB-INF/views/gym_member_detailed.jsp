@@ -69,7 +69,7 @@
                             <strong>Temporary Password: </strong> ${gymMember.password}
                         </spring:if>
                         <spring:if test="${gymMember.lastLoginDate != null}">
-                            Password has been changed by member already!
+                            Login details have been changed by ${gymMember.firstName} already!
                         </spring:if>
                     </div>
 

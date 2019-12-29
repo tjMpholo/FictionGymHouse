@@ -28,28 +28,41 @@
                     <c:if test="${not empty msg}">
                         <div class="msg">${msg}</div>
                     </c:if>
-                    <form name="loginForm" action="<c:url value="/j_spring_security_check"/>" method="post" >
+                    <form name="loginForm" action="<c:url value="/MemberLogin/ForgotPassword"/>" method="post" >
                         <c:if test="${not empty error}">
-                            <div class="error center-block" style="color: #ff0000;">${error}</div>
+                            <div class="error" style="color: #ff0000;">${error}</div>
                         </c:if>
                         <div class="form-group">
-                            <label for="username">Username</label>
-                            <input type="text" id="username" name="username" class="form-control input-sm" />
+                            <label for="currentUsername">Current Username</label>
+                            <input type="text" id="currentUsername" required name="currentUsername" class="form-control input-sm" />
                         </div>
 
                         <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" id="password" name="password" class="form-control input-sm" />
+                            <label for="newUsername">New Username</label>
+                            <input type="email" id="newUsername" required name="newUsername" class="form-control input-sm" />
                         </div>
 
-                        <input type="submit"  value="Login" class="btn btn-primary btn-sm">
-                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                        <a href="<spring:url value="/MemberLogin/ForgotPassword"/>" class="btn btn-primary btn-sm">Forgot password</a>
+                        <div class="form-group">
+                            <label for="currentPassword">Current Password</label>
+                            <input type="password" id="currentPassword" required name="currentPassword" class="form-control input-sm" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="newPassword">New Password</label>
+                            <input type="password" id="newPassword" required name="newPassword" class="form-control input-sm" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmNewPassword">Confirm New Password</label>
+                            <input type="password" id="confirmNewPassword" required name="confirmNewPassword" class="form-control input-sm" />
+                        </div>
+
+                        <input type="submit"  value="Change Password" class="btn btn-primary btn-sm">
                     </form>
                 </div>
                 <div class="col-md-2">
 
                 </div>
-                </div>
+            </div>
 
 <%@include file="template/footer.jsp"%>

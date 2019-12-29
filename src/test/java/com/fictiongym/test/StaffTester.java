@@ -1,7 +1,15 @@
 package com.fictiongym.test;
 
+import com.fictiongym.dao.AuthorityDao;
+import com.fictiongym.dao.GymMemberDao;
+import com.fictiongym.dao.StaffMemberDao;
 import com.fictiongym.dao.impl.StaffMemberImpl;
+import com.fictiongym.model.Authorities;
+import com.fictiongym.model.GymMember;
 import com.fictiongym.model.StaffMember;
+import com.fictiongym.service.AuthorityService;
+import com.fictiongym.service.GymMemberService;
+import com.fictiongym.service.StaffMemberService;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.After;
@@ -14,9 +22,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.instanceOf;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.regex.Matcher;
@@ -28,23 +38,50 @@ public class StaffTester {
     @Autowired
     private SessionFactory sessionFactory;
 
+    @Autowired
+    private GymMemberService gymMemberService;
+
+
+    @Autowired
+    private StaffMemberDao staffMemberDao;
+
+    @Autowired
+    private AuthorityDao authorityDao;
+
+    @Autowired
+    private StaffMemberService staffMemberService;
+
+    @Autowired
+    private AuthorityService authorityService;
+
 
     Session session;
 
     StaffMember staffMember;
+    StaffMember staffMemberTest;
+    GymMember gymMember;
+    GymMember gymMemberTest;
+    Authorities authority;
 
     @Before
     public void wireUpBeans(){
-        session = sessionFactory.getCurrentSession();
-        staffMember = (StaffMember)session.get(StaffMember.class,"4028b8816efd3108016efd3641a50001");
+        //session = sessionFactory.getCurrentSession();
 
-        session.flush();
+        staffMember = staffMemberService.getStaffMemberByRsaId("9606176298080");
+        staffMemberTest = staffMemberService.getStaffMemberByEmailAddress("engelina@gmail.com");
 
+        //authority = authorityDao.getAuthorityByUsername("T_Joseph_922");
+        //newAuthority.setMemberId(gymMember.getMemberIdentifier());
+
+        //gymMemberTest = gymMemberService.getGymMemberByEmailAddress("thato_m90@gmail.com");
+
+        //session.flush();
     }
 
     @Test
     public void testStaffMemberID(){
-
+        //gymMemberTest != null && !gymMemberTest.getMemberIdentifier().equals(gymMember.getMemberIdentifier())
+        assertThat(staffMember.getRsaIdNumber(),is(staffMemberTest.getRsaIdNumber()));
     }
 
 

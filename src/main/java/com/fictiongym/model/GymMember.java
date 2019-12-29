@@ -12,7 +12,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 @Entity
-@Table(name = "gymmember")
 public class GymMember {
 
     @Id
@@ -20,6 +19,7 @@ public class GymMember {
     @GeneratedValue(generator = "system-uuid")
     private String defaultId;
 
+    @Column(unique = true)
     @NotEmpty(message = "Please provide an RSA ID number or any passport number.")
     private String memberIdentifier;
 
@@ -32,6 +32,7 @@ public class GymMember {
     @NotEmpty(message = "Please provide your cellphone number")
     private String cellphone;
 
+    @Column(unique = true)
     @NotEmpty(message = "Please provide an email address")
     private String emailAddress;
 

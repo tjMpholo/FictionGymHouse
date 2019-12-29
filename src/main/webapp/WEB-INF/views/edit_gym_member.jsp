@@ -22,10 +22,19 @@
                 <form:form action="${pageContext.request.contextPath}/gymMember/editStaffMemberDetail" method="post" enctype="multipart/form-data" commandName="gymMember">
                     <form:hidden path="defaultId" value="${gymMember.defaultId}"/>
                     <form:hidden path="password" value="${gymMember.password}"/>
+                    <form:hidden path="username" value="${gymMember.username}"/>
                     <div class="form-group">
                         <label for="memberIdentifier" class="control-label">RSA ID or passport number</label>
+                        <c:if test="${not empty idError}">
+                            <p class="error center-block" style="color: #ff0000;">${idError}</p>
+                        </c:if>
                         <form:errors path="memberIdentifier" cssStyle="color:red"/>
-                        <form:input path="memberIdentifier" id="memberIdentifier" class="form-control input-sm"/>
+                        <spring:if test="${userRole == 'ROLE_MANAGER' }">
+                            <form:input path="memberIdentifier" id="memberIdentifier" class="form-control input-sm"/>
+                        </spring:if>
+                        <spring:if test="${userRole != 'ROLE_MANAGER' }">
+                            <form:input path="memberIdentifier" id="memberIdentifier" readonly="true" class="form-control input-sm"/>
+                        </spring:if>
                     </div>
 
                     <div class="form-group">
@@ -48,6 +57,9 @@
 
                     <div class="form-group">
                         <label for="emailAddress" class="control-label">Email address</label>
+                        <c:if test="${not empty emailError}">
+                            <p class="error center-block" style="color: #ff0000;">${emailError}</p>
+                        </c:if>
                         <form:errors path="emailAddress" cssStyle="color:red;"/>
                         <form:input path="emailAddress" id="emailAddress" class="form-control input-sm"/>
                     </div>

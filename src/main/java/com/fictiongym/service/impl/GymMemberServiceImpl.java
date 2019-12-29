@@ -39,4 +39,24 @@ public class GymMemberServiceImpl implements GymMemberService {
     public void deleteMember(String memberId) {
         gymMemberDao.deleteMember(memberId);
     }
+
+    @Override
+    public GymMember getGymMemberByUsernameAndPassword(String username, String password) {
+        return gymMemberDao.getGymMemberByUsernameAndPassword(username, password);
+    }
+
+    @Override
+    public GymMember getGymMemberByUsername(String username) {
+        return gymMemberDao.getGymMemberByUsername(username);
+    }
+
+    @Override
+    public GymMember getGymMemberByRsaId(String memberIdNo) {
+        return gymMemberDao.getGymMemberByRsaId(memberIdNo);
+    }
+
+    @Override
+    public GymMember getGymMemberByEmailAddress(String emailAddress) {
+        return gymMemberDao.getGymMemberByEmailAddress(emailAddress);
+    }
 }

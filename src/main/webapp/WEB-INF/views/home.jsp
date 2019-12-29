@@ -3,6 +3,9 @@
 <%@ taglib prefix="input" uri="http://www.springframework.org/tags/form" %>
 <%@include file="template/header.jsp"%>
 
+
+
+
 <!-- Carousel
 ================================================== -->
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -12,9 +15,9 @@
         <li data-target="#myCarousel" data-slide-to="1"></li>
         <li data-target="#myCarousel" data-slide-to="2"></li>
     </ol>
-    <div class="carousel-inner" role="listbox">
+    <div class="carousel-inner" role="listbox" style="height: 770px;">
         <div class="item active">
-            <img class="first-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="First slide">
+            <img class="img-responsive" src="<c:url value="/resources/images/slideshow-1.jpg"/> " alt="First slide" style="height: 1000px;">
             <div class="container">
                 <div class="carousel-caption">
                     <h1>Example headline.</h1>
@@ -24,7 +27,7 @@
             </div>
         </div>
         <div class="item">
-            <img class="second-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Second slide">
+            <img class="img-responsive" src="<c:url value="/resources/images/slideshow-2.jpg"/> " alt="Second slide" style="height: 1000px;">
             <div class="container">
                 <div class="carousel-caption">
                     <h1>Another example headline.</h1>
@@ -34,7 +37,7 @@
             </div>
         </div>
         <div class="item">
-            <img class="third-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Third slide">
+            <img class="img-responsive" src="<c:url value="/resources/images/slideshow-3.jpg"/> " alt="Third slide" style="height: 1000px;">
             <div class="container">
                 <div class="carousel-caption">
                     <h1>One more for good measure.</h1>
@@ -82,13 +85,8 @@
             <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
     </div><!-- /.row -->
+    </div>
 
-    <!-- FOOTER -->
-    <footer>
-        <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2015 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-    </footer>
 
-</div><!-- /.container -->
 
 <%@include file="template/footer.jsp"%>

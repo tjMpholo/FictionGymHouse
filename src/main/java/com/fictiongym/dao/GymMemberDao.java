@@ -16,4 +16,12 @@ public interface GymMemberDao {
     GymMember getGymMemberById(String defaultId);
 
     void deleteMember(String memberId);
+
+    GymMember getGymMemberByUsernameAndPassword(String username, String password);
+
+    GymMember getGymMemberByUsername(String username);
+
+    GymMember getGymMemberByRsaId(String memberIdNo);
+
+    GymMember getGymMemberByEmailAddress(String emailAddress);
 }

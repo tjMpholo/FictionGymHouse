@@ -18,6 +18,9 @@
 
                 <div class="col-md-5">
                     <p>
+                        <strong>RSA Identity No</strong> : ${staffMember.rsaIdNumber}
+                    </p>
+                    <p>
                         <strong>First Name</strong> : ${staffMember.firstName}
                     </p>
                     <p>
@@ -36,7 +39,7 @@
                             <strong>Temporary Password: </strong> ${staffMember.password}
                         </spring:if>
                         <spring:if test="${staffMember.lastLoginDate != null}">
-                            Password has been changed by staff member already!
+                            Login details have been changed by ${staffMember.firstName} already!
                         </spring:if>
                     </div>
                     <a href="<c:url value="/gymStaff/All"/>" class="btn btn-primary btn-sm">Go Back</a>

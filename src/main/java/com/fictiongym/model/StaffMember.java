@@ -5,16 +5,21 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
-public class StaffMember {
+public class StaffMember implements Serializable {
+    private static final long serialVersionUID = 1794853133406908701L;
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String staffMemberId;
 
+    @Column(unique = true)
     @NotEmpty(message = "Id number cannot be empty")
     private String rsaIdNumber;
 
@@ -27,10 +32,15 @@ public class StaffMember {
     @NotEmpty(message = "Please add the section in which the employee works.")
     private String section;
 
+    @Column(unique = true)
+    @NotEmpty(message = "Please provide an email address")
+    private String emailAddress;
+
     private boolean isProfileSet = false;
 
     private String imagePath = "male_default";
 
+    @Column(unique = true)
     private String username;
 
     private String password;
@@ -41,6 +51,15 @@ public class StaffMember {
     private Date lastLoginDate;
 
     private Calendar lastUpdateDate;
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
 
     public String getUsername() {
         return username;

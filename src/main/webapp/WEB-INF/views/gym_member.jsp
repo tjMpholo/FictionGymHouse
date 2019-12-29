@@ -13,9 +13,10 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Names</th>
+                            <th></th>
+                            <th>Name</th>
                             <th>Cellphone Number</th>
-                            <th>Email</th>
+                            <th>Email address</th>
                             <th>Gender</th>
                         </tr>
                     </thead>
@@ -24,11 +25,10 @@
                             <td>
                                 <img src="<spring:url value="/resources/images/${gymMember.imagePath}.jpg"/>" width="100" class="img-responsive img-rounded" alt="No Profile">
                             </td>
-                            <td>${gymMember.memberIdentifier}</td>
                             <td>${gymMember.firstName} ${gymMember.lastName}</td>
                             <td>${gymMember.cellphone}</td>
                             <td>${gymMember.emailAddress}</td>
-                            
+
                             <spring:if test="${gymMember.gender == 'M'}">
                                 <td>Male</td>
                             </spring:if>
